@@ -20,7 +20,7 @@ const btnDelete = document.querySelector('button[data-destroy]');
 const number = document.querySelector('[type="number"]');
 const container = document.querySelector('#boxes');
 console.log(number);
-function addBoxes() {
+function onCreateBtnClick() {
   if (
     Number(number.value.trim()) > Number(number.max) ||
     Number(number.value.trim()) < Number(number.min)
@@ -31,9 +31,12 @@ function addBoxes() {
   }
   number.value = '';
 }
+function onDeleteBtnClick(ent) {
+  return destroyBoxes();
+}
 
-btnCreate.addEventListener('click', addBoxes);
-btnDelete.addEventListener('click', destroyBoxes);
+btnCreate.addEventListener('click', onCreateBtnClick);
+btnDelete.addEventListener('click', onDeleteBtnClick);
 
 function destroyBoxes() {
   number.value = '';
@@ -46,7 +49,7 @@ function createBoxes(amount) {
   const arrDiv = [];
   for (let i = 0; i < amount; i += 1) {
     size += 10 * i;
-    const divs = `<div class="container" style="background-color: ${getRandomHexColor()}; weight: ${size}px; height: ${size}px;"></div>`;
+    const divs = `<div class="container" style="background-color: ${getRandomHexColor()}; width: ${size}px; height: ${size}px;"></div>`;
     arrDiv.push(divs);
   }
   container.insertAdjacentHTML('beforeend', arrDiv.join(''));
